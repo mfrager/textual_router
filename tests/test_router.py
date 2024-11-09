@@ -12,7 +12,7 @@ class Home(Static):
     def compose(self):
         """Return view"""
 
-        yield RouterLink(page="about", label="About", id="about_link")
+        yield RouterLink(path="about", label="About", id="about_link")
 
 
 class About(Static):
@@ -21,7 +21,7 @@ class About(Static):
     def compose(self):
         """Return view"""
 
-        yield RouterLink(page="home", label="Home", id="home_link")
+        yield RouterLink(path="home", label="Home", id="home_link")
 
 
 class BasicApp(App):

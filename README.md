@@ -16,10 +16,10 @@ Use the Router object in your App's compose() and provide links and their _Views
     )
 ```
 
-Within in your _View_, user RouterLinks to navigate to other views.
+Within in your _View_, use RouterLinks to navigate to other views.
 
 ```python
-    yield RouterLink(page="link_to_view_b",label="ViewB")
+    yield RouterLink(path="link_to_view_b",label="ViewB")
 ```
 
 
@@ -34,13 +34,13 @@ from textual_router import Route, Router, RouterLink
 class Home(Static):
 
     def compose(self):
-        yield RouterLink(page="about", label="About")
+        yield RouterLink(path="about", label="About")
 
 
 class About(Static):
     
     def compose(self):
-        yield RouterLink(page="home", label="Home")
+        yield RouterLink(path="home", label="Home")
 
 class BasicApp(App):
     TITLE = "Basic app"

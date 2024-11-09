@@ -12,25 +12,25 @@ from textual.widgets import Button, Static
 class RouterLink(Button):
     """Class that navigates to the provided path"""
 
-    page: str
+    path: str
 
-    def __init__(self, page: str, **kargs):
+    def __init__(self, path: str, **kargs):
         super().__init__(**kargs)
-        self.page = page
+        self.path = path
 
     class Clicked(Message):
         """Message carrier for link clicks"""
 
-        page: str
+        path: str
 
-        def __init__(self, page: str) -> None:
-            self.page = page
+        def __init__(self, path: str) -> None:
+            self.path = path
             super().__init__()
 
     async def on_button_pressed(self) -> None:
         """Notifies the Router class that link was clicked"""
 
-        self.post_message(self.Clicked(self.page))
+        self.post_message(self.Clicked(self.path))
 
 
 @dataclass
@@ -65,6 +65,6 @@ def Router(routes: Routes) -> Static:
         def on_router_link_clicked(self, message: RouterLink.Clicked) -> None:
             """Updates the current link of the Router"""
 
-            self.link = message.page
+            self.link = message.path
 
     return __Router()
