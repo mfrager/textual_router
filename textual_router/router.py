@@ -1,5 +1,6 @@
 """A view router for Textual"""
 
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import TypeAlias, cast
 
@@ -44,7 +45,17 @@ class Route:
 Routes: TypeAlias = list[Route]
 
 
-def Router(routes: Routes) -> Static:
+class RouterType(ABC):
+    """For typing hinting Router class"""
+
+    @abstractmethod
+    def route_to(self, path: str):
+        """Route to path"""
+
+        pass
+
+
+def Router(routes: Routes, identifier: str = "router") -> Static:
     """The top level class that manages the routing of your application"""
 
     class __Router(Static):
@@ -52,6 +63,7 @@ def Router(routes: Routes) -> Static:
 
         internal_routes = {x.path: x.view for x in routes}
         link = reactive(next(iter(internal_routes)))
+        id = identifier
 
         def watch_link(self, old_link: str, new_link: str) -> None:
             """Reactive response to the link change"""
@@ -66,5 +78,10 @@ def Router(routes: Routes) -> Static:
             """Updates the current link of the Router"""
 
             self.link = message.path
+
+        def route_to(self, path: str):
+            """Route to path"""
+
+            self.link = path
 
     return __Router()

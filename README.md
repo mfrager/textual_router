@@ -5,7 +5,7 @@ A view router for [Textual](https://textual.textualize.io/) inspired by [Solid-R
 ## Usage
 Create _Views_ from _Static_ widgets.
 
-Use the Router object in your App's compose() and provide links and their _Views_:
+Use the **Router** object in your App's compose() and provide links and their _Views_:
 
 ```python
     yield Router(
@@ -16,10 +16,29 @@ Use the Router object in your App's compose() and provide links and their _Views
     )
 ```
 
-Within in your _View_, use RouterLinks to navigate to other views.
+Within in your _View_, use **RouterLinks** to navigate to other views.
 
 ```python
     yield RouterLink(path="link_to_view_b",label="ViewB")
+```
+
+To use links outside the **Router**, you can use its "route_to" method:
+
+```python
+    async def action_main_menu(self) -> None:
+        cast(RouterType, self.query_one("#router")).route_to("link_to_view_a")
+
+```
+
+The **Router**'s identifier defaults to "router", but can be customized:
+```python
+    yield Router(
+        routes=[
+            Route(path="link_to_view_a", view=ViewA()),
+            Route(path="link_to_view_b", view=ViewB()),
+        ],
+        identifier="app_router"
+    )
 ```
 
 

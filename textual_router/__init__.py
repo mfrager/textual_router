@@ -1,3 +1,3 @@
-from .router import Route, Router, RouterLink
+from .router import Route, Router, RouterLink, RouterType
 
-__all__ = ["Router", "Route", "RouterLink"]
+__all__ = ["Router", "Route", "RouterLink", "RouterType"]
