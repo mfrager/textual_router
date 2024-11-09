@@ -36,7 +36,7 @@ class RouterLink(Button):
 Routes: TypeAlias = dict[str, Static]
 
 
-def Router(routes: Routes):
+def Router(routes: Routes) -> Static:
     """The top level component that manages the routing of your application"""
 
     class Router(Static):
@@ -55,6 +55,7 @@ def Router(routes: Routes):
 
         def on_router_link_clicked(self, message: RouterLink.Clicked) -> None:
             """Updates the current link of the Router"""
+
             self.link = message.page
 
     return Router()
