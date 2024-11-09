@@ -2,3 +2,5 @@
 tests/__pycache__/*
 textual_router/__pycache__/*
 
+*.whl
+*.tar.gz

@@ -5,7 +5,6 @@ description = "A view router for Textual projects"
 authors = ["imajacket <30511439+imajacket@users.noreply.github.com>"]
 license = "MIT"
 readme = "README.md"
-requires-python = ">=3.10"
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
