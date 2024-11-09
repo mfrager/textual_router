@@ -16,6 +16,7 @@ mypy = "^1.13.0"
 interrogate = "^1.7.0"
 pytest = "^8.3.3"
 pytest-asyncio = "^0.24.0"
+isort = "^5.13.2"
 
 [build-system]
 requires = ["poetry-core"]
