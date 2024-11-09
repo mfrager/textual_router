@@ -3,7 +3,7 @@
 from textual.app import App, ComposeResult
 from textual.widgets import Footer, Header, Static
 
-from textual_router import Router, RouterLink
+from textual_router import Route, Router, RouterLink
 
 
 class Home(Static):
@@ -34,10 +34,10 @@ class BasicApp(App):
         """Create child widgets for the app."""
         yield Header()
         yield Router(
-            {
-                "home": Home(),
-                "about": About(),
-            }
+            [
+                Route(path="home", view=Home()),
+                Route(path="about", view=About()),
+            ]
         )
         yield Footer()
 

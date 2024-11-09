@@ -1,5 +1,6 @@
 """A view router for Textual"""
 
+from dataclasses import dataclass
 from typing import TypeAlias, cast
 
 from textual.message import Message
@@ -9,7 +10,7 @@ from textual.widgets import Button, Static
 
 
 class RouterLink(Button):
-    """Component that navigates to the provided path"""
+    """Class that navigates to the provided path"""
 
     page: str
 
@@ -27,35 +28,43 @@ class RouterLink(Button):
             super().__init__()
 
     async def on_button_pressed(self) -> None:
-        """Notifies the Router component that link was clicked"""
+        """Notifies the Router class that link was clicked"""
 
         self.post_message(self.Clicked(self.page))
 
 
-# The dict used when defining the routes of an application.
-Routes: TypeAlias = dict[str, Static]
+@dataclass
+class Route:
+    """The class used when defining the routes of an application."""
+
+    path: str
+    view: Static
+
+
+Routes: TypeAlias = list[Route]
 
 
 def Router(routes: Routes) -> Static:
-    """The top level component that manages the routing of your application"""
+    """The top level class that manages the routing of your application"""
 
-    class Router(Static):
+    class __Router(Static):
         """The routing class"""
 
-        link = reactive(next(iter(routes)))
+        internal_routes = {x.path: x.view for x in routes}
+        link = reactive(next(iter(internal_routes)))
 
         def watch_link(self, old_link: str, new_link: str) -> None:
             """Reactive response to the link change"""
 
             if old_link != new_link:
-                route_name = f"{type(routes[old_link]).__name__}"
-                self.query_one(route_name).remove()
+                prev_view = type(self.internal_routes[old_link]).__name__
+                self.query_one(prev_view).remove()
 
-            self.mount(cast(Widget, routes[new_link]))
+            self.mount(cast(Widget, self.internal_routes[new_link]))
 
         def on_router_link_clicked(self, message: RouterLink.Clicked) -> None:
             """Updates the current link of the Router"""
 
             self.link = message.page
 
-    return Router()
+    return __Router()

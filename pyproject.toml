@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "textual-router"
-version = "0.1.2"
+version = "0.2.0"
 description = "A view router for Textual projects"
-authors = ["imajacket <30511439+imajacket@users.noreply.github.com>"]
+authors = ["imajacket"]
 license = "MIT"
 readme = "README.md"
 classifiers = [
@@ -33,3 +33,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.interrogate]
 ignore-init-method = true
 ignore-init-module = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
